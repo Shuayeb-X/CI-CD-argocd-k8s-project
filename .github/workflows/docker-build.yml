@@ -2,14 +2,15 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   docker:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Login to DockerHub
@@ -18,8 +19,8 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build image
+      - name: Build Docker Image
         run: docker build -t shauyeb009/nginx-cicd-demo:latest .
 
-      - name: Push image
+      - name: Push Docker Image
         run: docker push shauyeb009/nginx-cicd-demo:latest
